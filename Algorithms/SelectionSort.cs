@@ -26,12 +26,11 @@ namespace Sorting_Visualiser.Algorithms
                 }
                 if (min != i)
                 {
-                    Swap(sortArray, i, min);
-                    Application.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[i].rect, i)));
-                    Application.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[min].rect, min)));
-                    Thread.Sleep(5);
+                    Swap(sortArray, i, min);                    
+                    Thread.Sleep(2);
                 }
             }
+            Algorithm_Finish();
             return sortArray;
         }
     }

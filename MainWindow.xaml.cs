@@ -27,6 +27,8 @@ namespace Sorting_Visualiser
         public SortElem[] sortArray;
         public Generator generator;
 
+        public Thread thr;
+
         public bool loaded = false;
 
         public MainWindow()
@@ -40,7 +42,7 @@ namespace Sorting_Visualiser
         {
             loaded = true;
             generator = new Generator();
-            sortArray = generator.New_Array(500);
+            sortArray = generator.New_Array(200);
             Render_Array();
         }
 
@@ -69,30 +71,58 @@ namespace Sorting_Visualiser
 
         private void ShuffleBtn(object sender, RoutedEventArgs e)
         {
-            Thread thr = new Thread(Shuffle_Array);
+            thr = new Thread(Shuffle_Array);
             thr.Start();
         }
 
         private void SortBtn(object sender, RoutedEventArgs e)
         {
-            Thread thr = new Thread(Bubble_Sort);
+            thr = new Thread(Bubble_Sort);
             thr.Start();
         }
 
         private void SelectionBtn(object sender, RoutedEventArgs e)
         {
-            Thread thr = new Thread(Selection_Sort);
+            thr = new Thread(Selection_Sort);
             thr.Start();
         }
 
-        
+        private void MergeBtn(object sender, RoutedEventArgs e)
+        {
+            thr = new Thread(Merge_Sort);
+            thr.Start();
+        }
+
+
         private void Selection_Sort() => InvokeEffect(SelectionSort.Default);
         private void Bubble_Sort() => InvokeEffect(BubbleSort.Default);
         private void Shuffle_Array() => InvokeEffect(Shuffle.Default);
+        private void Merge_Sort() => InvokeEffect(MergeSort.Default);
+
 
         private void InvokeEffect(ISort sort)
         {
-            sortArray = sort.Apply(sortArray);
+            Dispatcher.Invoke(new Action(() => Buttons_Change_State(false)));
+            sortArray = sort.Apply(sortArray);            
+        }
+
+        public void Buttons_Change_State(bool active)
+        {
+            shuffleBtn.IsEnabled = active;
+            bubbleBtn.IsEnabled = active;
+            selectionBtn.IsEnabled = active;
+            sizeSlider.IsEnabled = active;
+        }
+
+
+        private void StopBtn(object sender, RoutedEventArgs e)
+        {
+            if (thr != null && thr.IsAlive)
+            {
+                thr.Abort();
+                Buttons_Change_State(true);
+            }
+
         }
 
 

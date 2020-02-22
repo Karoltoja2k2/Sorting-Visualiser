@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Algorithms\BubbleSort.cs" />
     <Compile Include="Algorithms\ISort.cs" />
+    <Compile Include="Algorithms\MergeSort.cs" />
     <Compile Include="Algorithms\SelectionSort.cs" />
     <Compile Include="Algorithms\Shuffle.cs" />
     <Compile Include="Algorithms\SortBase.cs" />

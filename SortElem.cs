@@ -13,8 +13,9 @@ namespace Sorting_Visualiser
             rect = new Rectangle();
             rect.Width = width;
             rect.Fill = color;
-            rect.Height = sortId;
             sortProp = sortId;
+            rect.Height = sortId;
+
         }
     }
 }

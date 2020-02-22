@@ -23,12 +23,11 @@ namespace Sorting_Visualiser.Algorithms
                     if (sortArray[i].sortProp > sortArray[i + 1].sortProp)
                     {
                         Swap(sortArray, i, i + 1);
-                        Application.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[i].rect, i)));
-                        Application.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[i + 1].rect, i + 1)));
                     }
                 }
                 n--;
             }
+            Algorithm_Finish();
             return sortArray;
         }
     }
