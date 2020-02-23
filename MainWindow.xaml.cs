@@ -42,7 +42,7 @@ namespace Sorting_Visualiser
         {
             loaded = true;
             generator = new Generator();
-            sortArray = generator.New_Array(200);
+            sortArray = generator.New_Array(600);
             Render_Array();
         }
 
@@ -93,11 +93,25 @@ namespace Sorting_Visualiser
             thr.Start();
         }
 
+        private void InsertBtn(object sender, RoutedEventArgs e)
+        {
+            thr = new Thread(Insertion_Sort);
+            thr.Start();
+        }
+
+        private void CocktailBtn(object sender, RoutedEventArgs e)
+        {
+            thr = new Thread(Cocktail_Sort);
+            thr.Start();
+        }
+
 
         private void Selection_Sort() => InvokeEffect(SelectionSort.Default);
         private void Bubble_Sort() => InvokeEffect(BubbleSort.Default);
         private void Shuffle_Array() => InvokeEffect(Shuffle.Default);
         private void Merge_Sort() => InvokeEffect(MergeSort.Default);
+        private void Insertion_Sort() => InvokeEffect(InsertSort.Default);
+        private void Cocktail_Sort() => InvokeEffect(CocktailSort.Default);
 
 
         private void InvokeEffect(ISort sort)

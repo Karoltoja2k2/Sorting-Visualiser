@@ -17,7 +17,10 @@
             <Slider Name="sizeSlider" ValueChanged="Change_Size" Width="100" Minimum="200" Maximum="600" TickFrequency="1"/>
             <Button Name="bubbleBtn" Content="Bubble sort" Width="100" Click="SortBtn"/>
             <Button Name="selectionBtn" Content="Selection sort" Width="100" Click="SelectionBtn"/>
-            <Button Name="mergeBtn" Content="Selection sort" Width="100" Click="MergeBtn"/>
+            <Button Name="mergeBtn" Content="Merge sort" Width="100" Click="MergeBtn"/>
+            <Button Name="insertBtn" Content="Insertion sort" Width="100" Click="InsertBtn"/>
+            <Button Name="cocktail" Content="Cocktail sort" Width="100" Click="CocktailBtn"/>
+
             <Button Name="stopBtn" Content="STOP" Width="100" Click="StopBtn" Background="Red" />
 
 

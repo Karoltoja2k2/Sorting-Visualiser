@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace Sorting_Visualiser.Algorithms
                     if (sortArray[i].sortProp > sortArray[i + 1].sortProp)
                     {
                         Swap(sortArray, i, i + 1);
+                        Thread.Sleep(1 / 10);
                     }
                 }
                 n--;
