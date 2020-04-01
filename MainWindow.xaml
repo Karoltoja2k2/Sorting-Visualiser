@@ -6,26 +6,56 @@
         xmlns:local="clr-namespace:Sorting_Visualiser"
         mc:Ignorable="d"
         Background="Black"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        FontFamily="Roboto"
+        FontSize="22"
+        FontWeight="DemiBold"
         Title="MainWindow" Height="720" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="600*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Name="shuffleBtn"  Content="Shuffle" Width="100" Click="ShuffleBtn"/>
-            <Slider Name="sizeSlider" ValueChanged="Change_Size" Width="100" Minimum="200" Maximum="600" TickFrequency="1"/>
-            <Button Name="bubbleBtn" Content="Bubble sort" Width="100" Click="SortBtn"/>
-            <Button Name="selectionBtn" Content="Selection sort" Width="100" Click="SelectionBtn"/>
-            <Button Name="mergeBtn" Content="Merge sort" Width="100" Click="MergeBtn"/>
-            <Button Name="insertBtn" Content="Insertion sort" Width="100" Click="InsertBtn"/>
-            <Button Name="cocktail" Content="Cocktail sort" Width="100" Click="CocktailBtn"/>
+        <DockPanel LastChildFill="False" Background="AntiqueWhite"  Grid.Row="0" Panel.ZIndex="1" MouseLeftButtonDown="Drag_Window">
 
-            <Button Name="stopBtn" Content="STOP" Width="100" Click="StopBtn" Background="Red" />
+            <Button Name="startBtn" Style="{DynamicResource menuButtonCenter}" VerticalContentAlignment="Center" Background="Transparent" Content="Start" Width="100" Margin="5" Click="Start"/>
+
+            <Slider Name="sizeSlider" ValueChanged="Change_Size" Width="100" Minimum="200" Maximum="600" TickFrequency="10" VerticalAlignment="Center" Margin="5"/>
+
+            <Button Name="shuffleBtn" Style="{DynamicResource menuButtonCenter}" Background="Transparent" Content="Shuffle" Width="100" Margin="5,5,15,5" Click="ShuffleBtn"/>
 
 
-        </StackPanel>
-        <Grid Name="grid" Grid.Row="1" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center">
+            <Canvas Width="{Binding ActualWidth, ElementName=ExpanderSort}" Height="30" Margin="5">
+                <Expander Header="Selection" x:Name="ExpanderSort" Foreground="Black" Background="AntiqueWhite" Width="150"  IsExpanded="False" MouseEnter="mouseInExpander" MouseLeave="mouseOutExpander">
+                    <StackPanel>
+                        <Button Name="selectionBtn" Style="{DynamicResource menuButtonLeft}" FontSize="16" Content="Selection sort" Margin="2" CommandParameter="0" Click="Select_Alg"/>
+                        <Button Name="bubbleBtn" Style="{DynamicResource menuButtonLeft}"    FontSize="16" Content="Bubble sort" Margin="2" CommandParameter="1" Click="Select_Alg"/>
+                        <Button Name="mergeBtn" Style="{DynamicResource menuButtonLeft}"     FontSize="16" Content="Merge sort" Margin="2" CommandParameter="2" Click="Select_Alg"/>
+                        <Button Name="insertBtn" Style="{DynamicResource menuButtonLeft}"    FontSize="16" Content="Insertion sort" Margin="2" CommandParameter="3" Click="Select_Alg"/>
+                        <Button Name="cocktailBtn" Style="{DynamicResource menuButtonLeft}"  FontSize="16" Content="Cocktail sort" Margin="2" CommandParameter="4" Click="Select_Alg"/>
+                    </StackPanel>
+                </Expander>
+            </Canvas>
+
+            <Canvas Width="{Binding ActualWidth, ElementName=ExpanderRender}" Height="30" Margin="5" >
+                <Expander Header="Pyramid (H)" x:Name="ExpanderRender" Foreground="Black" Background="AntiqueWhite" Width="150" IsExpanded="False" MouseEnter="mouseInExpander" MouseLeave="mouseOutExpander">
+                    <StackPanel>
+                        <Button  Style="{DynamicResource menuButtonLeft}" FontSize="16" Content="Pyramid (H)" Click="Render_Horizontal_Pyramid"/>
+                        <Button  Style="{DynamicResource menuButtonLeft}" FontSize="16" Content="Square (H)"  Click="Render_Horizontal_Square"/>
+                        <Button  Style="{DynamicResource menuButtonLeft}" FontSize="16" Content="pyramid (V)"  Click="Render_Vertical_Pyramid"/>
+                        <Button  Style="{DynamicResource menuButtonLeft}" FontSize="16" Content="Square (V)"  Click="Render_Vertical_Square"/>
+                    </StackPanel>
+                </Expander>
+            </Canvas>
+
+
+            <Button Style="{DynamicResource titleBarButton}" Background="Black" BorderThickness="0" FontSize="35" Height="40" Width="30" Foreground="White"  Click="Close_Game_Window" Content="X" DockPanel.Dock="Right" Margin="5,5" VerticalAlignment="Center"/>
+
+            <Button Style="{DynamicResource titleBarButton}" Background="Black" BorderThickness="0" FontSize="35" Height="40" Width="30" Foreground="White" Click="Minimize_Game_Window" Content="_" DockPanel.Dock="Right" Margin="5,5" VerticalAlignment="Center"/>
+        </DockPanel>
+        
+        <Grid Name="grid" Grid.Row="1">
         </Grid>
 
     </Grid>

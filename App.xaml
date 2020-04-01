@@ -4,6 +4,85 @@
              xmlns:local="clr-namespace:Sorting_Visualiser"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="menuButtonLeft" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="button" Margin="0" CornerRadius="2" BorderBrush="Black" BorderThickness="0" Background="Transparent">
+                                <TextBlock FontWeight="DemiBold" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Left" Foreground="Black" FontFamily="Roboto" Text="{TemplateBinding Button.Content}" Margin="5,2" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="button" Property="Background" Value="Wheat" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="button" Property="Background" Value="WhiteSmoke" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style x:Key="menuButtonCenter" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="button" Margin="0" CornerRadius="2" BorderBrush="Black" BorderThickness="0" Background="Transparent">
+                                <TextBlock FontWeight="DemiBold" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center" Foreground="Black" FontFamily="Roboto" Text="{TemplateBinding Button.Content}" Margin="5,2" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="button" Property="Background" Value="Wheat" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="button" Property="Background" Value="WhiteSmoke" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="button" Margin="0" CornerRadius="2" BorderBrush="Black" BorderThickness="0.2" Background="{TemplateBinding Background}">
+                                <TextBlock FontWeight="DemiBold" FontSize="18" FontFamily="Roboto" Text="{TemplateBinding Button.Content}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        
+        <Style x:Key="titleBarButton" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="button" Margin="0" CornerRadius="2" BorderBrush="Black" BorderThickness="0" Background="{TemplateBinding Background}">
+                                <TextBlock FontWeight="DemiBold" FontFamily="Roboto" Text="{TemplateBinding Button.Content}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="button"  Property="Background" Value="LightGray"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="button" Property="Background" Value="Red" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </Application>

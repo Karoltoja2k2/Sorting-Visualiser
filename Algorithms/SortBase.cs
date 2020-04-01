@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Sorting_Visualiser.Algorithms
 {
@@ -12,9 +16,61 @@ namespace Sorting_Visualiser.Algorithms
         public MainWindow mainWin;
         public abstract SortElem[] Apply(SortElem[] sortArray);
 
+        MemoryStream beepSound;
+        SoundPlayer soundPlayer = new SoundPlayer();
+
         public SortBase()
         {
             App.Current.Dispatcher.Invoke(new Action(() => mainWin = (MainWindow)App.Current.MainWindow));
+            beepSound = PlayBeep(20000, 10);
+            beepSound.Seek(0, SeekOrigin.Begin);
+        }
+
+
+        public static MemoryStream PlayBeep(UInt16 frequency, int msDuration, UInt16 volume = 16383)
+        {
+            var mStrm = new MemoryStream();
+            BinaryWriter writer = new BinaryWriter(mStrm);
+
+            const double TAU = 2 * Math.PI;
+            int formatChunkSize = 16;
+            int headerSize = 8;
+            short formatType = 1;
+            short tracks = 1;
+            int samplesPerSecond = 44100;
+            short bitsPerSample = 16;
+            short frameSize = (short)(tracks * ((bitsPerSample + 7) / 8));
+            int bytesPerSecond = samplesPerSecond * frameSize;
+            int waveSize = 4;
+            int samples = (int)((decimal)samplesPerSecond * msDuration / 1000);
+            int dataChunkSize = samples * frameSize;
+            int fileSize = waveSize + headerSize + formatChunkSize + headerSize + dataChunkSize;
+            // var encoding = new System.Text.UTF8Encoding();
+            writer.Write(0x46464952); // = encoding.GetBytes("RIFF")
+            writer.Write(fileSize);
+            writer.Write(0x45564157); // = encoding.GetBytes("WAVE")
+            writer.Write(0x20746D66); // = encoding.GetBytes("fmt ")
+            writer.Write(formatChunkSize);
+            writer.Write(formatType);
+            writer.Write(tracks);
+            writer.Write(samplesPerSecond);
+            writer.Write(bytesPerSecond);
+            writer.Write(frameSize);
+            writer.Write(bitsPerSample);
+            writer.Write(0x61746164); // = encoding.GetBytes("data")
+            writer.Write(dataChunkSize);
+            {
+                double theta = frequency * TAU / (double)samplesPerSecond;
+                // 'volume' is UInt16 with range 0 thru Uint16.MaxValue ( = 65 535)
+                // we need 'amp' to have the range of 0 thru Int16.MaxValue ( = 32 767)
+                double amp = volume >> 2; // so we simply set amp = volume / 2
+                for (int step = 0; step < samples; step++)
+                {
+                    short s = (short)(amp * Math.Sin(theta * (double)step));
+                    writer.Write(s);
+                }
+            }
+            return mStrm; 
         }
 
         public void Swap(SortElem[] sortArray, int swap, int with)
@@ -27,14 +83,13 @@ namespace Sorting_Visualiser.Algorithms
 
         public void Display_Swap(SortElem[] sortArray, int elem1, int elem2)
         {
-            App.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[elem1].rect, elem1)));
-            App.Current.Dispatcher.Invoke(new Action(() => Grid.SetColumn(sortArray[elem2].rect, elem2)));
+            sortArray[elem1].Set_Pos(elem1);
+            sortArray[elem2].Set_Pos(elem2);
         }
 
         public void Algorithm_Finish()
         {
             App.Current.Dispatcher.Invoke(new Action(() => mainWin.Buttons_Change_State(true)));
         }
-
     }
 }

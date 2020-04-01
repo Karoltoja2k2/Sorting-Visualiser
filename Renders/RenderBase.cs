@@ -3,33 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Sorting_Visualiser
+namespace Sorting_Visualiser.Renders
 {
-    public class Generator
+    public abstract class RenderBase : IRender
     {
-        public List<SolidColorBrush> colorList;
+        public abstract SortElem[] New_Array(int len);
+        public abstract void Render_Array(Grid grid);
+
         public SortElem[] sortArray;
+        public List<SolidColorBrush> colorList;
 
-        public SortElem[] New_Array(int size)
-        {
-            sortArray = new SortElem[size];
-            colorList = Rainbow_Colors(size);
-            for (int i = 0; i < size; i++)
-            {
-                sortArray[i] = new SortElem(1, i, 2, i, colorList[i]);
-            }
-            return sortArray;
-        }
+        public string ITitle { get { return title; } }
+        public string title;
 
-        public List<SolidColorBrush> Rainbow_Colors(int len)
+
+        public List<SolidColorBrush> Rainbow_Colors(int len, int phase, int center, int width)
         {
             List<SolidColorBrush> colors = new List<SolidColorBrush>();
-    
-            int phase = 0;
-            int center = 128;
-            int width = 127;
             double frequency = Math.PI * 2 / len;
             for (var i = 0; i < len; ++i)
             {

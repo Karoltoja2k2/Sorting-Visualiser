@@ -25,7 +25,7 @@ namespace Sorting_Visualiser.Algorithms
                     index = random.Next(0, sortArray.Length);
                 }
                 Swap(sortArray, i, index);
-                Thread.Sleep(2);
+                Thread.Sleep(1);
             }
             Algorithm_Finish();
             return sortArray;

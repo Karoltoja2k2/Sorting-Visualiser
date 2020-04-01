@@ -34,6 +34,12 @@ namespace Sorting_Visualiser.Algorithms
 
         public void Merge(SortElem[] sortArray, int leftBound, int middle, int rightBound)
         {
+            if (!mainWin.run)
+            {
+                return;
+            }
+
+
             int len1 = middle - leftBound + 1;
             int len2 = rightBound - middle;
 
@@ -92,7 +98,7 @@ namespace Sorting_Visualiser.Algorithms
 
         public void Swap(SortElem[] sortArray, int sortArrayIndex, SortElem elemToFindIndex)
         {
-            int index = Grid.GetColumn(elemToFindIndex.rect);
+            int index = elemToFindIndex.Get_Pos();
 
             SortElem temp = sortArray[index];
             sortArray[index] = sortArray[sortArrayIndex];
